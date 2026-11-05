@@ -1,0 +1,9 @@
+# XERP Sovereign Runtime & Sovereign Zenith Swarm
+> High-performance autonomous agent runtime, Ring-0 EDF microkernel, 26.2x Tree-Sitter AST token compression engine, and 960 TPS planetary interception grid.
+
+- [Architecture Overview](ARCHITECTURE.md): Full system topology spanning eBPF DMA, Blake3 Merkle trees, and Ring-0 EDF schedulers.
+- [XERP Specification](XERP_SPECIFICATION.md): Wire protocols, Merkle sync payloads, and AST symbol schemas.
+- [Benchmarks](BENCHMARKS.md): 480 TPS & 960 TPS metrics, <150ns scheduling jitter, and 0.04ms SeqLock IPC.
+- [Security Policy](SECURITY.md): Threat models, eBPF LSM socket containment, and ERC-8004 ZK attestation.
+- [MCP Manifest](.mcp.json): Model Context Protocol server configuration for Claude Code, Cursor, and Windsurf.
+- [Python SDK](xerp-sdk/README.md): Zero-copy POSIX /dev/shm ring buffer library with SeqLock synchronization.

@@ -1,0 +1,57 @@
+{
+  "mcpVersion": "1.0",
+  "mcpServers": {
+    "xerp-ast-indexer": {
+      "command": "node",
+      "args": [
+        "./dist/mcp/ast_indexer_server.js"
+      ],
+      "env": {
+        "XERP_ROOT": "${workspaceFolder}",
+        "TREE_SITTER_GRAMMARS_PATH": "./grammars",
+        "COMPRESSION_RATIO_TARGET": "26.2"
+      },
+      "disabled": false,
+      "alwaysAllow": [
+        "query_exact_symbols",
+        "compress_code_context",
+        "resolve_call_graph"
+      ]
+    },
+    "xerp-swarm-orchestrator": {
+      "command": "node",
+      "args": [
+        "./dist/mcp/swarm_orchestrator_server.js"
+      ],
+      "env": {
+        "XERP_SHM_PATH": "/dev/shm/xerp_agent_bus.v1",
+        "HUB_INGEST_ENDPOINT": "https://hub.xerj.org/api/v1/corpus/ingest",
+        "EDF_SCHEDULER_JITTER_MAX_NS": "150"
+      },
+      "disabled": false,
+      "alwaysAllow": [
+        "dispatch_tactical_command",
+        "sync_blake3_merkle_root",
+        "verify_ed25519_attestation"
+      ]
+    },
+    "xerp-kernel-telemetry": {
+      "command": "./bin/xerp-kernel-bridge",
+      "args": [
+        "--ring-bus",
+        "/dev/shm/xerp_agent_bus.v1",
+        "--ebpf-lsm",
+        "enabled"
+      ],
+      "env": {
+        "RUST_LOG": "info"
+      },
+      "disabled": false,
+      "alwaysAllow": [
+        "inspect_ebpf_sockets",
+        "read_mm_slab_frames",
+        "trigger_quarantine_eBPF"
+      ]
+    }
+  }
+}

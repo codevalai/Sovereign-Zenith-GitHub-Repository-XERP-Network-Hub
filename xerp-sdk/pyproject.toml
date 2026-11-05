@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xerp-sdk"
+version = "1.0.0"
+description = "High-speed POSIX /dev/shm shared memory ring buffer SDK for XERP autonomous agent swarms."
+readme = "README.md"
+authors = [{ name = "XERP Core Team", email = "codevalai@xerj.org" }]
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+]

@@ -12,6 +12,6 @@
     "targetTps": 480
   },
   "hubEndpoint": "https://hub.xerj.org/api/v1/corpus/ingest",
-  "timestamp": "2026-11-02T08:11:44Z",
-  "signature": "sig_ed25519_cae83fa5cd37208f98ac1cc79df7e2b26db834d931989dce5a34ad18c60dcf67"
+  "timestamp": "2026-11-05T01:56:06Z",
+  "signature": "sig_ed25519_b5144449b67299e6bc0f512008adee6f0c7dbef018c5f955c0470fde73423c4c"
 }
