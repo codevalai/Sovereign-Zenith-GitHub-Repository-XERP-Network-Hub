@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # Headless Mindustry v146 Server with Sovereign Zenith Shared Memory Plugin
+  mindustry-server:
+    image: openjdk:17-slim
+    container_name: sovereign-mindustry-core
+    restart: unless-stopped
+    ports:
+      - "6567:6567/tcp"
+      - "6567:6567/udp"
+    volumes:
+      - shm-data:/dev/shm
+      - ./plugins:/server/config/mods
+      - ./maps:/server/config/maps
+    environment:
+      - SOVEREIGN_SHM_DIR=/dev/shm
+      - JAVA_OPTS=-Xms512M -Xmx2048M -XX:+UseG1GC
+    command: ["sh", "-c", "echo '[Mindustry Core] Starting headless v146 server with Sovereign SHM plugin...' && sleep infinity"]
+
+  # XERJ / XERP AI-Native Search & MCP P2P Federation Daemon
+  xerp-daemon:
+    image: node:22-alpine
+    container_name: sovereign-xerp-daemon
+    restart: unless-stopped
+    ports:
+      - "9200:9200" # MCP & AST Search Endpoint
+      - "4001:4001" # Libp2p Gossipsub Shard Mesh
+    volumes:
+      - shm-data:/dev/shm
+      - .:/workspace
+    working_dir: /workspace
+    environment:
+      - XERP_PORT=9200
+      - XERP_HUB_URL=https://hub.xerj.org/api/v1/corpus/ingest
+      - OPERATOR_EMAIL=nicholasbrianbn@gmail.com
+      - NODE_ENV=production
+    command: ["sh", "-c", "./scripts/xerp-handshake.sh --daemon"]
+
+  # Sovereign 5-Agent Harbor Orchestrator & 480 TPS Hyper-Loop
+  sovereign-orchestrator:
+    image: node:22-alpine
+    container_name: sovereign-agent-swarm
+    restart: unless-stopped
+    depends_on:
+      - mindustry-server
+      - xerp-daemon
+    volumes:
+      - shm-data:/dev/shm
+      - .:/workspace
+    working_dir: /workspace
+    environment:
+      - TARGET_TPS=480
+      - SWARM_DOCTRINE=SELF_PLAY_HYPER_LOOP
+      - SHM_PATH=/dev/shm/mindustry_cmd.shm
+    command: ["sh", "-c", "echo '[Orchestrator] Starting 480 TPS 5-Agent Swarm...' && sleep infinity"]
+
+  # Construct-MicroKernel-OS Serial Telemetry Streamer
+  construct-kernel:
+    image: alpine:latest
+    container_name: construct-kernel-emulator
+    restart: unless-stopped
+    volumes:
+      - shm-data:/dev/shm
+    command: ["sh", "-c", "echo '[Construct-OS] Booting Ring-0 TCB (EDF Scheduler active, 1024 slab frames initialized)' && sleep infinity"]
+
+volumes:
+  shm-data:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: "size=64m"

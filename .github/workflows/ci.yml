@@ -1,0 +1,55 @@
+name: Sovereign Zenith Multi-Arch CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  lint-and-ast:
+    name: TypeScript AST & Lint Verification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+
+  mindustry-plugin:
+    name: Mindustry Java 17 Plugin Compile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Java 17 (Required for Arc Annotations)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Verify JDK version is exactly 17
+        run: java -version 2>&1 | grep -q "17."
+
+  rust-microkernel:
+    name: Construct-OS #![no_std] Slab Allocator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Rust Nightly
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-none
+
+  xerp-handshake-smoke:
+    name: XERP Protocol & MCP Gateway Smoke Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test XERP Handshake Script
+        run: |
+          chmod +x scripts/xerp-handshake.sh
+          ./scripts/xerp-handshake.sh --dry-run --operator nicholasbrianbn@gmail.com

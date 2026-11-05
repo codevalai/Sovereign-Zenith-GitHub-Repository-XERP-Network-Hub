@@ -1,0 +1,6 @@
+{
+  "name": "Sovereign Zenith Swarm & Construct OS Workstation",
+  "description": "High-performance multi-agent Mindustry swarm orchestrator, zero-latency mlog compiler, and Construct-MicroKernel Ring-0 telemetry workstation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

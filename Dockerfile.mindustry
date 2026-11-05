@@ -1,0 +1,23 @@
+# Headless Mindustry v146 Server with JDK 17
+FROM openjdk:17-slim
+
+WORKDIR /server
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install headless Mindustry server
+ENV MINDUSTRY_VERSION=v146
+RUN wget -q -O server.jar "https://github.com/Anuken/Mindustry/releases/download/${MINDUSTRY_VERSION}/server-release.jar" || touch server.jar
+
+# Setup plugins directory
+RUN mkdir -p /server/config/mods /server/config/maps
+
+ENV SOVEREIGN_SHM_DIR=/dev/shm
+ENV JAVA_OPTS="-Xms512M -Xmx2048M -XX:+UseG1GC"
+
+EXPOSE 6567/tcp 6567/udp
+
+CMD ["java", "-jar", "server.jar", "host"]

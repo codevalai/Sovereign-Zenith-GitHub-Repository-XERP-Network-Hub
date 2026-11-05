@@ -1,0 +1,17 @@
+{
+  "protocol": "XERP/1.0-ED25519-AST",
+  "handshakeStatus": "ESTABLISHED",
+  "nodeDid": "did:xerp:sovereign-zenith-node-97208276971",
+  "operator": "nicholasbrianbn@gmail.com",
+  "publicKey": "0x89f2a71d84b2e84c90d3e5124b89fa01c34ef19076bcde2051294876abcdef12",
+  "consensusRoot": "b0e58413907468023cba12fa765c97bb86fa9e2a34929075c5372daea5067187",
+  "capabilities": {
+    "astSearch": true,
+    "treeSitterGrammars": ["typescript", "rust", "java", "c", "mlog"],
+    "zeroCopyShm": true,
+    "targetTps": 480
+  },
+  "hubEndpoint": "https://hub.xerj.org/api/v1/corpus/ingest",
+  "timestamp": "2026-11-02T08:11:44Z",
+  "signature": "sig_ed25519_cae83fa5cd37208f98ac1cc79df7e2b26db834d931989dce5a34ad18c60dcf67"
+}

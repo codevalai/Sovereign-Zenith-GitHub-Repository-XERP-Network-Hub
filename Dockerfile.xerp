@@ -1,0 +1,20 @@
+# XERP AI-Native Search & MCP P2P Daemon
+FROM node:22-alpine
+
+WORKDIR /workspace
+
+RUN apk add --no-cache bash curl git
+
+COPY package*.json ./
+RUN npm install --omit=dev
+
+COPY . .
+
+ENV XERP_PORT=9200
+ENV XERP_HUB_URL=https://hub.xerj.org/api/v1/corpus/ingest
+ENV OPERATOR_EMAIL=nicholasbrianbn@gmail.com
+ENV NODE_ENV=production
+
+EXPOSE 9200 4001
+
+CMD ["./scripts/xerp-handshake.sh", "--daemon"]
